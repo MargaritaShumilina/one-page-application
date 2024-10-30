@@ -1,0 +1,127 @@
+.main-content{
+    display: flex;
+    margin: auto;
+    flex-direction: column;
+    max-width: 500px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.main-content__logo{
+    width: 122px;
+    height: 18px;
+    margin-top: 117px;
+    margin-bottom: 55px;
+}
+
+.form-login__block{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    border: 1px solid #BCBCBC;
+    box-shadow: 2px 4px 4px 0px #0000001A;
+    border-radius: 5px;
+    padding: 0 50px 20px 50px;
+    box-sizing: border-box;
+    height: 350px;
+}
+
+.form-login__inputs{
+    all: unset;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    height: 300px;
+    box-sizing: border-box;
+}
+
+.form-login__heading{
+    font-family: Roboto, serif;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 18.75px;
+    text-align: center;
+}
+
+.form-login__labels{
+    width: 100%;
+    font-family: Roboto, serif;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 18.75px;
+    text-align: left;
+    color: #292222;
+    margin-bottom: 5px;
+    position: relative;
+    margin-top: 6px;
+}
+
+.form-login__labels_email{
+    margin-top: 27px;
+}
+
+.form-login__labels_star{
+    color: red;
+}
+
+.form-login__input{
+    all: unset;
+    border: 1px solid #BCBCBC;
+    padding: 9px;
+    font-family: Roboto, serif;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 18.75px;
+    color: #292222;
+}
+
+.form-login__button{
+    all: unset;
+    border: 1px solid #BCBCBC;
+    border-radius: 3px;
+    padding: 5px;
+    text-align: center;
+    font-family: Roboto, serif;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 18.75px;
+    color: #292222;
+    margin-top: 18px;
+    margin-bottom: 22px;
+}
+
+.form-login__button_disabled{
+    color: #BCBCBC;;
+}
+
+.form-login__another-way{
+    text-align: center;
+    font-family: Roboto, serif;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 18.75px;
+    color: #292222;
+    max-width: 150px;
+    align-self: center;
+    text-decoration: none;
+}
+
+.form-login__icon{
+    background-image: url('../../images/eyeOff.png');
+    position: absolute;
+    top: 30px;
+    right: 7px;
+    height: 24px;
+    width: 24px;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.form-login__input-error {
+    height: 20px;
+}
+
+.form-login__input-error-text{
+    color: red;
+    margin: 0;
+}
