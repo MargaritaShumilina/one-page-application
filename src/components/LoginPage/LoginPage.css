@@ -125,3 +125,12 @@
     color: red;
     margin: 0;
 }
+
+.main-content__error{
+    text-align: center;
+    font-family: Roboto, serif;
+    font-size: 22px;
+    font-weight: 400;
+    line-height: 18.75px;
+    color: red;
+}

@@ -2,10 +2,18 @@ import './LoginPage.css';
 import logo from '../../images/logo.png';
 
 import { useForm } from 'react-hook-form';
-import { useState, useEffect } from 'react';
+import React, { type FC, useState, useEffect } from 'react';
+import {Preloader} from "../Preloader/Preloader";
 
-function LoginPage(props: { errorMessage: string; handleLoginClick: (arg0: any, arg1: any) => void; }) {
-    const [disabled, setDisabled] = useState(true);
+type Props = {
+    errorMessage: string;
+    handleLoginClick: (email: string, password: string,) => void;
+    isLoading:boolean
+}
+
+export const LoginPage: FC<Props> = ({ errorMessage, handleLoginClick, isLoading}) => {
+    const [disabled, setDisabled] = useState<boolean>(true);
+
     const {
         register,
         handleSubmit,
@@ -14,16 +22,14 @@ function LoginPage(props: { errorMessage: string; handleLoginClick: (arg0: any, 
         reset,
     } = useForm({ mode: 'onChange' });
 
-    useEffect(() => {}, [props.errorMessage]);
-
     useEffect(() => {
         reset();
-    }, [isSubmitSuccessful, props.errorMessage]);
+    }, [isSubmitSuccessful, errorMessage]);
 
     function handleSubmitLogin() {
-        const email = getValues('email');
-        const password = getValues('password');
-        props.handleLoginClick(email, password);
+        const email:string = getValues('email');
+        const password:string = getValues('password');
+        handleLoginClick(email, password);
         reset({ email: '', password: '' });
         setDisabled(true);
     }
@@ -31,6 +37,8 @@ function LoginPage(props: { errorMessage: string; handleLoginClick: (arg0: any, 
     return (
         <section className="main-content">
             <img src={logo} alt="логотип" className="main-content__logo" />
+            {isLoading ? <Preloader />
+                 : (<>
                 <form
                     className="form-login__block"
                     onSubmit={handleSubmit(handleSubmitLogin)}
@@ -84,7 +92,8 @@ function LoginPage(props: { errorMessage: string; handleLoginClick: (arg0: any, 
                     Не удается войти в систему?
                 </a>
                 </form>
-
+            <p className='main-content__error'>{errorMessage}</p></>)
+            }
         </section>
     );
 }
