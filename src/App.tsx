@@ -2,10 +2,11 @@ import React, {type FC, useEffect, useState} from 'react';
 import './App.css';
 import { LoginPage } from "./components/LoginPage/LoginPage";
 import { Preloader } from "./components/Preloader/Preloader";
-import { login } from "./utils/API";
+import {fetchObjectTree, login} from "./utils/API";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import ProtectedRouteElement from "./components/ProtectedRouteElement/ProtectedRouteElement";
 import { ProductsPage } from "./components/ProductsPage/ProductsPage";
+import {TreeNode, UserInfo} from "./utils/types";
 
 function App(): React.JSX.Element {
 
@@ -13,15 +14,14 @@ function App(): React.JSX.Element {
   const [errorMessage, setErrorMessage] = useState<string>('');
   const [isTokenChecked, setIsTokenChecked] = useState<boolean>(false);
   const [successful, setSuccessful] = useState<boolean>(false);
-  const [currentUser,setCurrentUser] = useState({})
-    const [isLoading, setIsLoading] = useState(false);
+  const [currentUser,setCurrentUser] = useState<UserInfo>()
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [objectTree,setObjectTree] = useState<TreeNode[]>([])
+
 
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (isTokenChecked) {
-       <Preloader />;
-    }
     setLoggedIn(false);
     tokenCheck();
   }, []);
@@ -37,6 +37,9 @@ function App(): React.JSX.Element {
                 localStorage.setItem('jwt', res.token);
                 localStorage.setItem('user', JSON.stringify({name: res.name, surname: res.surname}));
                 navigate('/products', { replace: true })
+                const tree = await fetchObjectTree(res.token)
+                setObjectTree([...objectTree, ...tree]);
+                console.log(tree)
             }
         } catch (err) {
             setSuccessful(false);
@@ -54,17 +57,22 @@ function App(): React.JSX.Element {
     }
 
   const tokenCheck = async () => {
+    setIsLoading(true)
     const jwt = localStorage.getItem('jwt');
     try {
-    if (jwt && jwt !== 'undefined') {
-        setIsTokenChecked(true)
-          setLoggedIn(true);
-          navigate('/products', { replace: true });
+        if (jwt && jwt !== 'undefined') {
+           setIsTokenChecked(true)
+           setLoggedIn(true);
+           const tree = await fetchObjectTree(jwt)
+           setObjectTree([...objectTree, ...tree]);
+           console.log(tree)
+           navigate('/products', { replace: true });
         }
-      }
-      catch (err) {
+    } catch (err) {
         console.log(err);
-      }
+    } finally {
+        setIsLoading(false)
+    }
   }
 
   return (
@@ -87,8 +95,8 @@ function App(): React.JSX.Element {
               <ProtectedRouteElement
                   element={ProductsPage}
                   loggedIn={loggedIn}
-                  currentUser={currentUser}
                   isLoading={isLoading}
+                  objectTree={objectTree}
               />
             }
         />

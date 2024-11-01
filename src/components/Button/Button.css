@@ -1,0 +1,19 @@
+.close-button{
+    margin-right: 5px;
+}
+
+.open-button{
+    padding: 5px;
+}
+
+.btn{
+    all: unset;
+    border: 1px solid #BCBCBC;
+    border-radius: 3px;
+    font-family: Roboto, serif;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 18.75px;
+    text-align: center;
+    padding: 5px;
+}
