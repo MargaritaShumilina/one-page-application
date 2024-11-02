@@ -1,29 +1,36 @@
-import React, {ChangeEvent, ChangeEventHandler, FC, useState} from 'react';
-import {Preloader} from "../Preloader/Preloader";
-import {CheckboxTreeNode, TreeNode} from "../../utils/types";
-import './ProductsPage.css'
-import CheckboxTree from 'react-checkbox-tree';
-import Tree from "rc-tree";
-import Button from "../Button/Button";
-import {SearchInput} from "../SearchInput/SearchInput";
-import Description from "../Description/Description";
+import React, {ChangeEvent, FC, Key, useState} from 'react';
+import { Preloader } from '../Preloader/Preloader';
+import {TransformedTreeNode, TreeNode} from '../../utils/types';
+import './ProductsPage.css';
+import Tree from 'rc-tree';
+import Button from '../Button/Button';
+import { SearchInput } from '../SearchInput/SearchInput';
+import Description from '../Description/Description';
+import 'rc-tree/assets/index.css';
+import Dropdown from "../Dropdown/Dropdown";
+import {dropdownOptions} from "../../utils/constants";
 
 type Props = {
     isLoading: boolean;
-    objectTree?: TreeNode[]
+    objectTree?: TreeNode[];
 };
 
 export const ProductsPage: FC<Props> = ({ isLoading, objectTree }) => {
-    const [checked, setChecked] = useState<string[]>([]);
-    const [expanded, setExpanded] = useState<string[]>([]);
+    const [expandedKeys, setExpandedKeys] = useState<string[]>([]);
+    const [checkedKeys, setCheckedKeys] = useState<string[]>([]);
     const [filterText, setFilterText] = useState<string>('');
+    const [description, setDescription] = useState<string>('');
+    const [selectedKeys, setSelectedKeys] = useState<string[]>([]);
+    const [assignedFilter, setAssignedFilter] = useState<boolean | null>(null);
+    const [libraryFilter, setLibraryFilter] = useState<boolean | null>(null);
 
-    const transformTree = (nodes: TreeNode[]): CheckboxTreeNode[] => {
+    const transformTree = (nodes: TreeNode[]): any[] => {
         return nodes.map((node) => {
-            const transformedNode: CheckboxTreeNode = {
-                value: node.id,
-                label: node.name,
-                description: node.description
+            const transformedNode: any = {
+                key: node.id,
+                title: node.name,
+                description: node.description,
+                isLeaf: !node.children || node.children.length === 0,
             };
 
             if (node.children && node.children.length > 0) {
@@ -34,85 +41,107 @@ export const ProductsPage: FC<Props> = ({ isLoading, objectTree }) => {
         });
     };
 
-    const transformedTree = objectTree ? transformTree(objectTree) : [];
-    console.log(transformedTree);
+    const transformedTree: TransformedTreeNode[] = objectTree ? transformTree(objectTree) : [];
 
-    const getAllNodeValues = (nodes: CheckboxTreeNode[]): string[] => {
-        let allValues: string[] = [];
+    const handleExpandAll = () => {
+        const allKeys = getAllNodeKeys(transformedTree);
+        setExpandedKeys(allKeys);
+    };
+
+    const handleCollapseAll = () => {
+        setExpandedKeys([]);
+    };
+
+    const getAllNodeKeys = (nodes: any[]): string[] => {
+        let keys: string[] = [];
         nodes.forEach((node) => {
-            allValues.push(node.value);
+            keys.push(node.key);
             if (node.children) {
-                allValues = allValues.concat(getAllNodeValues(node.children));
+                keys = keys.concat(getAllNodeKeys(node.children));
             }
         });
-        return allValues
+        return keys;
     };
 
-    const handleOpen = () => {
-        const allNodeValues = getAllNodeValues(transformedTree);
-        setExpanded(allNodeValues);
-    };
-    const handleClose = () => {
-        setExpanded([])
+    const handleSearch = (event: ChangeEvent<HTMLInputElement>): void => {
+        setFilterText(event.target.value);
     };
 
-    const filterNodes = (filterText: string, nodes: CheckboxTreeNode[]): CheckboxTreeNode[] => {
-        return nodes.reduce<CheckboxTreeNode[]>((filtered, node) => {
-            const children = node.children ? filterNodes(filterText, node.children) : [];
+    const filterTree = (nodes: any[], searchTerm: string): any[] => {
+        return nodes.reduce<any[]>((filtered, node) => {
+            const children = node.children ? filterTree(node.children, searchTerm) : [];
             if (
-                node.label.toLocaleLowerCase().indexOf(filterText.toLocaleLowerCase()) > -1 ||
+                node.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
                 children.length > 0
             ) {
                 filtered.push({ ...node, children });
             }
-
             return filtered;
         }, []);
     };
 
-    const filteredTree = filterText ? filterNodes(filterText, transformedTree) : transformedTree;
+    const filteredTree: TransformedTreeNode[] = filterText ? filterTree(transformedTree, filterText) : transformedTree;
 
-    const handleSearch = (event: ChangeEvent<HTMLInputElement>): void => {
-        setFilterText(event.target.value);
-    }
+    const handleSelect = (selectedKeys: Key[], info: any) => {
+        setSelectedKeys(selectedKeys as string[]);
+        if (info.node) {
+            console.log(info.node);
+            setDescription(info.node.description || 'Нет описания');
+        } else {
+            setDescription('Нет описания');
+        }
+    };
 
-    //В ТЗ указано, что должны возвращаться имя и фамилия пользователя, но вывода нигде по дизайну нет
-    //Я записала сюда, как в наиболее логичное место вывода
-    let savedUserString = localStorage.getItem('user');
+    const handleNodeDoubleClick = (key: string) => {
+        if (!expandedKeys.includes(key)) {
+            setExpandedKeys([...expandedKeys, key]);
+        } else {
+            setExpandedKeys(expandedKeys.filter((expandedKey) => expandedKey !== key));
+        }
+    };
 
     return (
         <>
-            {transformedTree.length < 0 ? (
-                <Preloader/>
+            {isLoading ? (
+                <Preloader />
             ) : (
                 <>
-                   <Button onClick={handleClose} style={'btn close-button'} text={'Свернуть все'}/>
-                   <Button onClick={handleOpen} style={'btn open-button'} text={'Развернуть все'}/>
-                   <SearchInput filterText={filterText} onChange={handleSearch}/>
-                   <CheckboxTree
-                        nodes={filteredTree}
-                        checked={checked}
-                        expanded={expanded}
-                        onCheck={(checkedKeys) => setChecked(checkedKeys)}
-                        onExpand={(expandedKeys) => setExpanded(expandedKeys)}
-                        onClick={(e)=> {
-                            console.log(e)}}
-                        icons={{
-                            check: <span className="rct-icon rct-icon-check" />,
-                            uncheck: <span className="rct-icon rct-icon-uncheck" />,
-                            // halfCheck: <span className="rct-icon rct-icon-half-check" />,
-                            expandClose: <span className="expandClose" />,
-                            expandOpen: <span className="expandOpen" />,
-                            // parentClose: <span className="rct-icon rct-icon-parent-close" />,
-                            // parentOpen: <span className="rct-icon rct-icon-parent-open" />,
-                            leaf: <span className="rct-icon rct-icon-leaf" />,
-                        }}
-                   />
-                    <Description text={''}/>
+                    <Button onClick={handleCollapseAll} style={'btn close-button'} text={'Свернуть все'} />
+                    <Button onClick={handleExpandAll} style={'btn open-button'} text={'Развернуть все'} />
+                    <SearchInput filterText={filterText} onChange={handleSearch} />
+                    <div className="filters">
+                        <Dropdown
+                            label={`Присвоенные ${assignedFilter !== null ? '+1' : ''}`}
+                            options={dropdownOptions}
+                            selectedValue={assignedFilter}
+                            onChange={(value) => setAssignedFilter(value as boolean | null)}
+                            isCollapsible
+                        />
+                        <Dropdown
+                            label={`В Библиотеке ${libraryFilter !== null ? '+1' : ''}`}
+                            options={dropdownOptions}
+                            selectedValue={libraryFilter}
+                            onChange={(value) => setLibraryFilter(value as boolean | null)}
+                            isCollapsible
+                        />
+                    </div>
 
+                    <Tree
+                        treeData={filteredTree}
+                        expandedKeys={expandedKeys}
+                        onExpand={(keys) => setExpandedKeys(keys as string[])}
+                        checkedKeys={checkedKeys}
+                        onCheck={(keys) => setCheckedKeys(keys as string[])}
+                        selectable
+                        selectedKeys={selectedKeys}
+                        onSelect={(selectedKeys, info) => handleSelect(selectedKeys, info)}
+                        showLine
+                        checkable
+                        onDoubleClick={(event, node) => handleNodeDoubleClick(node.key)}
+                    />
+                    <Description text={description} />
                 </>
-            )
-            }
+            )}
         </>
     );
 };

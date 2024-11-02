@@ -9,16 +9,22 @@ export type UserInfo = {
     surname: string;
 };
 
-export type TreeNode = {
+export interface TreeNode {
     id: string;
     name: string;
     description: string;
     children?: TreeNode[];
 };
 
-export type CheckboxTreeNode = {
-    value: string;
+export type DropdownOption = {
     label: string;
-    description: string;
-    children?: CheckboxTreeNode[];
-};
+    value: boolean | null;
+}
+
+export interface TransformedTreeNode {
+    key: string;
+    title: string;
+    description?: string;
+    isLeaf: boolean;
+    children?: TransformedTreeNode[];
+}

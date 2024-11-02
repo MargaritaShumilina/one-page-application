@@ -15,7 +15,7 @@ type Props = {
 
 const ProtectedRouteElement:FC<Props> = ({ element: Component, isLoading, loggedIn, handleLoginClick, errorMessage, currentUser, ...props}) => {
     return loggedIn ? (
-        <Component {...props} handleLoginClick={handleLoginClick} errorMessage={errorMessage} currentUser={currentUser} isLoading={isLoading}/>
+        <Component {...props} handleLoginClick={handleLoginClick} errorMessage={errorMessage} isLoading={isLoading}/>
     ) : (
         <Navigate to="/" replace />
     );
