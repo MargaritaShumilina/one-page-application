@@ -1,0 +1,4 @@
+.description-block__connection-item {
+    all: unset;
+    display: flex;
+}

@@ -1,0 +1,7 @@
+.description-block__items-connection {
+    all: unset;
+}
+
+.description-block__items-heading-block {
+    display: flex;
+}
