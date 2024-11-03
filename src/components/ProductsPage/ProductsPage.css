@@ -1,44 +1,67 @@
-.expandClose{
-    background-image: url('../../images/close.png');
-    width: 15px;
-    height: 15px;
-    display: block;
-    object-fit: cover;
-    background-repeat: no-repeat;
-
-}
-.expandOpen{
-    background-image: url('../../images/open.png');
-    width: 15px;
-    height: 10px;
-    display: block;
-    object-fit: cover;
-    background-repeat: no-repeat;
-}
-.expandAll{
-    all: unset;
-
-}
-.collapseAll{
-    all: unset;
+.tree-page {
+    display: flex;
+    justify-content: center;
+    padding-top: 100px;
+    gap: 90px;
+    width: 100%;
 }
 
-.rct-collapse {
-    all: unset !important;
+.tree-block{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    max-width: 450px;
+    width: 100%;
+    padding-right: 20px;
+    padding-left: 20px;
+    box-sizing: border-box;
 }
 
-.rct-collapse-btn{
-    all: unset !important;
+.tree-block__tree-items{
+    overflow-y: hidden;
 }
 
-.react-checkbox-tree ol {
-    list-style-type: none !important;
-}
-
-label {
+.heading{
     font-family: Roboto, serif;
-    font-size: 16px;
+    font-size: 20px;
     font-weight: 400;
-    line-height: 18.75px;
+    line-height: 23.44px;
     text-align: left;
+    color:  #292222;
+    margin: 0;
+}
+
+.tree-block__header {
+margin: 14px 0 0 30px;
+}
+
+.tree-block__button-block{
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.tree-block__close-button{
+    margin-right: 5px;
+}
+
+.btn {
+    border: 1px solid #BCBCBC;
+    border-radius: 3px;
+    padding: 3px 5px;
+    background-color: initial;
+}
+
+.description-block {
+    max-width: 880px;
+    width: 100%;
+    padding-right: 20px;
+    box-sizing: border-box;
+}
+
+.description-block__filters{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 8px;
 }

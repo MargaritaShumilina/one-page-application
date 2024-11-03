@@ -11,6 +11,8 @@ type Props = {
     isLoading:boolean
 }
 
+//TODO: Сделать красные поля при отсутствии значений
+
 export const LoginPage: FC<Props> = ({ errorMessage, handleLoginClick, isLoading}) => {
     const [disabled, setDisabled] = useState<boolean>(true);
 

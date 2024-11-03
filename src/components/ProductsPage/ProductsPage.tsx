@@ -105,42 +105,49 @@ export const ProductsPage: FC<Props> = ({ isLoading, objectTree }) => {
             {isLoading ? (
                 <Preloader />
             ) : (
-                <>
-                    <Button onClick={handleCollapseAll} style={'btn close-button'} text={'Свернуть все'} />
-                    <Button onClick={handleExpandAll} style={'btn open-button'} text={'Развернуть все'} />
-                    <SearchInput filterText={filterText} onChange={handleSearch} />
-                    <div className="filters">
-                        <Dropdown
-                            label={`Присвоенные ${assignedFilter !== null ? '+1' : ''}`}
-                            options={dropdownOptions}
-                            selectedValue={assignedFilter}
-                            onChange={(value) => setAssignedFilter(value as boolean | null)}
-                            isCollapsible
-                        />
-                        <Dropdown
-                            label={`В Библиотеке ${libraryFilter !== null ? '+1' : ''}`}
-                            options={dropdownOptions}
-                            selectedValue={libraryFilter}
-                            onChange={(value) => setLibraryFilter(value as boolean | null)}
-                            isCollapsible
+                <div className='tree-page'>
+                    <div className='tree-block'>
+                        <h1 className='heading tree-block__header'>Классы</h1>
+                        <div className='tree-block__button-block'>
+                            <Button onClick={handleCollapseAll} style={'btn tree-block__close-button'} text={'Свернуть все'} />
+                            <Button onClick={handleExpandAll} style={'btn tree-block__open-button'} text={'Развернуть все'} />
+                        </div>
+                        <Tree
+                            className='tree-block__tree-items'
+                            treeData={filteredTree}
+                            expandedKeys={expandedKeys}
+                            onExpand={(keys) => setExpandedKeys(keys as string[])}
+                            checkedKeys={checkedKeys}
+                            onCheck={(keys) => setCheckedKeys(keys as string[])}
+                            selectable
+                            selectedKeys={selectedKeys}
+                            onSelect={(selectedKeys, info) => handleSelect(selectedKeys, info)}
+                            showLine
+                            checkable
+                            onDoubleClick={(event, node) => handleNodeDoubleClick(node.key)}
                         />
                     </div>
-
-                    <Tree
-                        treeData={filteredTree}
-                        expandedKeys={expandedKeys}
-                        onExpand={(keys) => setExpandedKeys(keys as string[])}
-                        checkedKeys={checkedKeys}
-                        onCheck={(keys) => setCheckedKeys(keys as string[])}
-                        selectable
-                        selectedKeys={selectedKeys}
-                        onSelect={(selectedKeys, info) => handleSelect(selectedKeys, info)}
-                        showLine
-                        checkable
-                        onDoubleClick={(event, node) => handleNodeDoubleClick(node.key)}
-                    />
-                    <Description text={description} />
-                </>
+                    <div className="description-block">
+                        <div className="description-block__filters">
+                            <Dropdown
+                                label={`Присвоенные ${assignedFilter !== null ? '+1' : ''}`}
+                                options={dropdownOptions}
+                                selectedValue={assignedFilter}
+                                onChange={(value) => setAssignedFilter(value as boolean | null)}
+                                isCollapsible
+                            />
+                            <Dropdown
+                                label={`В Библиотеке ${libraryFilter !== null ? '+1' : ''}`}
+                                options={dropdownOptions}
+                                selectedValue={libraryFilter}
+                                onChange={(value) => setLibraryFilter(value as boolean | null)}
+                                isCollapsible
+                            />
+                            <SearchInput filterText={filterText} onChange={handleSearch} />
+                        </div>
+                        <Description style={'heading'} text={description} />
+                    </div>
+                </div>
             )}
         </>
     );

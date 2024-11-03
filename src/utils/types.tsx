@@ -28,3 +28,15 @@ export interface TransformedTreeNode {
     isLeaf: boolean;
     children?: TransformedTreeNode[];
 }
+
+
+export type tBodyProperties = {
+    name: string,
+    defaultValue: boolean,
+    unit: string
+}
+
+export type tBodyConnections = {
+    name: string;
+    nameCheck: boolean
+}

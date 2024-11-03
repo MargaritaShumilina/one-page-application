@@ -1,0 +1,24 @@
+.description-block__description-text-block {
+    border: 1px solid #BCBCBC;
+    border-radius: 3px;
+    padding-right: 10px;
+    padding-left: 10px;
+    display: block;
+    min-height: 75px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.description-block__description-text {
+    font-family: Roboto, serif;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 18.75px;
+    text-align: left;
+    color: #292222;
+    margin: 0;
+}
+
+.description-block__heading {
+    margin-top: 72px;
+}

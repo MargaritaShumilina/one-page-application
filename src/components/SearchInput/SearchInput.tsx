@@ -1,4 +1,5 @@
-import React, { ChangeEventHandler, FC, InputHTMLAttributes } from 'react';
+import React, { ChangeEventHandler, FC } from 'react';
+import './SearchInput.css'
 
 type Props = {
     filterText: string;
@@ -7,12 +8,15 @@ type Props = {
 
 export const SearchInput: FC<Props> = ({ filterText, onChange }) => {
     return (
-        <input
-            className="filter-text"
-            placeholder="Найти классы"
-            type="text"
-            value={filterText}
-            onChange={onChange}
-        />
+        <div className='description-block__search-block'>
+            <span className='description-block__search-icon'/>
+            <input
+                className="description-block__search"
+                placeholder="Найти классы"
+                type="text"
+                value={filterText}
+                onChange={onChange}
+            />
+        </div>
     );
 };

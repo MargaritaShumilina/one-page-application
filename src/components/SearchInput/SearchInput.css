@@ -1,3 +1,32 @@
-.filter-text{
+.description-block__search{
+    all: unset;
+    border: 1px solid #BCBCBC;
+    border-radius: 3px;
+    width: 349px;
+    box-sizing: border-box;
+    padding: 3px;
+    height: 30px;
+}
 
+.description-block__search::placeholder{
+    font-family: Roboto, serif;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 18.75px;
+    text-align: left;
+    color: #BCBCBC;
+    padding-left: 26px;
+}
+
+.description-block__search-block{
+    position: relative;
+}
+
+.description-block__search-icon{
+    background-image: url('../../images/search-icon.png');
+    width: 24px;
+    height: 24px;
+    position: absolute;
+    top: 2px;
+    left: 2px;
 }
