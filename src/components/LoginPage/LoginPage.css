@@ -61,12 +61,13 @@
 }
 
 .form-login__labels_star{
-    color: red;
+    color: #DD1E26;
 }
 
 .form-login__input{
     all: unset;
     border: 1px solid #BCBCBC;
+    border-radius: 3px;
     padding: 9px;
     font-family: Roboto, serif;
     font-size: 16px;
@@ -122,7 +123,7 @@
 }
 
 .form-login__input-error-text{
-    color: red;
+    color: #DD1E26;
     margin: 0;
 }
 
@@ -132,5 +133,9 @@
     font-size: 22px;
     font-weight: 400;
     line-height: 18.75px;
-    color: red;
+    color: #DD1E26;
+}
+
+.form-login__input_error{
+    border: 1px solid #DD1E26;
 }

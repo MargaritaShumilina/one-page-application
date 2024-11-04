@@ -1,7 +1,23 @@
 .description-block__items-connection {
-    all: unset;
+    margin: 0;
+    padding: 5px 0;
+    border-bottom: 1px solid #BCBCBC;
+    max-width: 450px;
 }
 
 .description-block__items-heading-block {
     display: flex;
+    border-bottom: 1px solid #BCBCBC;
+    max-width: 450px;
+    padding: 5px 0;
+}
+
+.description-block__items-heading{
+    margin: 0;
+}
+
+.description-block__checkbox{
+    height: 18px;
+    width: 18px;
+    margin-right: 10px;
 }

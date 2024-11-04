@@ -8,8 +8,8 @@ type Props = {
 export const ConnectionItem: FC<Props> = ({name}) => {
     return (
         <li className='description-block__connection-item'>
-            <input type={"checkbox"}/>
-            <p>{name}</p>
+            <input type={"checkbox"} className='description-block__checkbox'/>
+            <p className='description-block__text'>{name}</p>
         </li>
     );
 };

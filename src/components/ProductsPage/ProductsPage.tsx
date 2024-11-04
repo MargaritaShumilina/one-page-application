@@ -125,6 +125,12 @@ export const ProductsPage: FC<Props> = ({ isLoading, objectTree }) => {
                             showLine
                             checkable
                             onDoubleClick={(event, node) => handleNodeDoubleClick(node.key)}
+                            switcherIcon={({ expanded, isLeaf }) =>
+                                !isLeaf ? (
+                                    <span className={`custom-switcher ${expanded ? 'expanded' : 'collapsed'}`}></span>
+                                ) : null
+                            }
+                            icon={({isLeaf}) => !isLeaf && <span className="folder-icon"></span>}
                         />
                     </div>
                     <div className="description-block">

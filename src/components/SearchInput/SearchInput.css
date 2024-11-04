@@ -4,8 +4,8 @@
     border-radius: 3px;
     width: 349px;
     box-sizing: border-box;
-    padding: 3px;
     height: 30px;
+    padding: 3px 3px 3px 30px;
 }
 
 .description-block__search::placeholder{
@@ -15,7 +15,6 @@
     line-height: 18.75px;
     text-align: left;
     color: #BCBCBC;
-    padding-left: 26px;
 }
 
 .description-block__search-block{

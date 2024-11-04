@@ -27,7 +27,7 @@ const Dropdown: FC<Props> = ({ label, options, selectedValue, onChange, isCollap
     return (
         <div className="dropdown">
             <div className="dropdown-label" onClick={handleToggle}>
-                {label} <span className={`dropdown-arrow ${isOpen ? 'open' : ''}`}>▼</span>
+                {label} <span className={`dropdown-arrow ${isOpen ? 'open' : ''}`}/>
             </div>
             {isOpen && (
                 <div className="dropdown-menu">

@@ -51,7 +51,7 @@ export const LoginPage: FC<Props> = ({ errorMessage, handleLoginClick, isLoading
                             Адрес электронной почты<span className="form-login__labels_star">*</span></label>
                         <input
                             type="email"
-                            className="form-login__input form-login__input_email"
+                            className={`form-login__input form-login__input_email  ${errors.email?.type === 'required' && 'form-login__input_error'}`}
                             id="form-login-email"
                             {...register('email', {
                                 required: true,
@@ -68,7 +68,7 @@ export const LoginPage: FC<Props> = ({ errorMessage, handleLoginClick, isLoading
                         </label>
                         <input
                             type="password"
-                            className="form-login__input form-login__input_password"
+                            className={`form-login__input form-login__input_password  ${errors.password?.type === 'required' && 'form-login__input_error'}`}
                             id="form-login-password"
                             autoComplete="current-password"
                            {...register('password', {
