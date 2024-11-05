@@ -14,6 +14,10 @@
     text-align: left;
     height: 30px;
     box-sizing: border-box;
+    width: 180px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .dropdown-arrow {
@@ -26,6 +30,7 @@
     background-repeat: no-repeat;
     background-position: center;
     background-size: contain;
+    margin-bottom: 1px;
 }
 
 .dropdown-arrow.open{

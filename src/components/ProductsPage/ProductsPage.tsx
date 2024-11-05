@@ -1,14 +1,17 @@
-import React, {ChangeEvent, FC, Key, useState} from 'react';
+import React, {type ChangeEvent, type FC, type Key, useState} from 'react';
 import { Preloader } from '../Preloader/Preloader';
-import {TransformedTreeNode, TreeNode} from '../../utils/types';
+import type {TransformedTreeNode, TreeNode} from '../../utils/types';
 import './ProductsPage.css';
 import Tree from 'rc-tree';
 import Button from '../Button/Button';
 import { SearchInput } from '../SearchInput/SearchInput';
 import Description from '../Description/Description';
 import 'rc-tree/assets/index.css';
-import Dropdown from "../Dropdown/Dropdown";
-import {dropdownOptions} from "../../utils/constants";
+import Dropdown from '../Dropdown/Dropdown';
+import {dropdownOptions} from '../../utils/constants';
+import {transformTree} from '../../utils/helpers/transformTree';
+import {filterTree} from '../../utils/helpers/filterTree';
+import {getAllNodeKeys} from '../../utils/helpers/getAllNodeKeys';
 
 type Props = {
     isLoading: boolean;
@@ -24,23 +27,6 @@ export const ProductsPage: FC<Props> = ({ isLoading, objectTree }) => {
     const [assignedFilter, setAssignedFilter] = useState<boolean | null>(null);
     const [libraryFilter, setLibraryFilter] = useState<boolean | null>(null);
 
-    const transformTree = (nodes: TreeNode[]): any[] => {
-        return nodes.map((node) => {
-            const transformedNode: any = {
-                key: node.id,
-                title: node.name,
-                description: node.description,
-                isLeaf: !node.children || node.children.length === 0,
-            };
-
-            if (node.children && node.children.length > 0) {
-                transformedNode.children = transformTree(node.children);
-            }
-
-            return transformedNode;
-        });
-    };
-
     const transformedTree: TransformedTreeNode[] = objectTree ? transformTree(objectTree) : [];
 
     const handleExpandAll = () => {
@@ -52,32 +38,8 @@ export const ProductsPage: FC<Props> = ({ isLoading, objectTree }) => {
         setExpandedKeys([]);
     };
 
-    const getAllNodeKeys = (nodes: any[]): string[] => {
-        let keys: string[] = [];
-        nodes.forEach((node) => {
-            keys.push(node.key);
-            if (node.children) {
-                keys = keys.concat(getAllNodeKeys(node.children));
-            }
-        });
-        return keys;
-    };
-
     const handleSearch = (event: ChangeEvent<HTMLInputElement>): void => {
         setFilterText(event.target.value);
-    };
-
-    const filterTree = (nodes: any[], searchTerm: string): any[] => {
-        return nodes.reduce<any[]>((filtered, node) => {
-            const children = node.children ? filterTree(node.children, searchTerm) : [];
-            if (
-                node.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                children.length > 0
-            ) {
-                filtered.push({ ...node, children });
-            }
-            return filtered;
-        }, []);
     };
 
     const filteredTree: TransformedTreeNode[] = filterText ? filterTree(transformedTree, filterText) : transformedTree;
@@ -101,11 +63,10 @@ export const ProductsPage: FC<Props> = ({ isLoading, objectTree }) => {
     };
 
     return (
-        <>
+        <div className='tree-page'>
             {isLoading ? (
                 <Preloader />
-            ) : (
-                <div className='tree-page'>
+            ) : (<>
                     <div className='tree-block'>
                         <h1 className='heading tree-block__header'>Классы</h1>
                         <div className='tree-block__button-block'>
@@ -153,8 +114,8 @@ export const ProductsPage: FC<Props> = ({ isLoading, objectTree }) => {
                         </div>
                         <Description style={'heading'} text={description} />
                     </div>
-                </div>
+                </>
             )}
-        </>
+        </div>
     );
 };

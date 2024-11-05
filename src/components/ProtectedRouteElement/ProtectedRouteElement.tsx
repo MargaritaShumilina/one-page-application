@@ -1,6 +1,6 @@
 import React, {type ComponentType, FC} from 'react';
 import { Navigate } from 'react-router-dom';
-import type {TreeNode, UserInfo} from "../../utils/types";
+import type {TreeNode, UserInfo} from '../../utils/types';
 
 type Props = {
     element: ComponentType<any>;

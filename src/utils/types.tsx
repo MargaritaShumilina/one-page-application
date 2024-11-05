@@ -14,7 +14,7 @@ export interface TreeNode {
     name: string;
     description: string;
     children?: TreeNode[];
-};
+}
 
 export type DropdownOption = {
     label: string;
@@ -27,16 +27,4 @@ export interface TransformedTreeNode {
     description?: string;
     isLeaf: boolean;
     children?: TransformedTreeNode[];
-}
-
-
-export type tBodyProperties = {
-    name: string,
-    defaultValue: boolean,
-    unit: string
-}
-
-export type tBodyConnections = {
-    name: string;
-    nameCheck: boolean
 }

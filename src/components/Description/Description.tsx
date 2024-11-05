@@ -1,8 +1,8 @@
-import React, {FC} from "react";
+import React, {type FC} from 'react';
 import './Description.css'
-import {connections, properties, tHeadProperties} from "../../utils/constants";
-import {ConnectionItems} from "../ConnectionItems/ConnectionItems";
-import {Table} from "../Table/Table";
+import {connections, properties, tHeadProperties} from '../../utils/constants';
+import {ConnectionItems} from '../ConnectionItems/ConnectionItems';
+import {Table} from '../Table/Table';
 
 type Props = {
     text:string | undefined;

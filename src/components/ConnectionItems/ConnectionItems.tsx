@@ -1,6 +1,6 @@
 import './ConnectionItems.css'
-import {FC} from "react";
-import {ConnectionItem} from "../ConnectionItem/ConnectionItem";
+import {type FC} from 'react';
+import {ConnectionItem} from '../ConnectionItem/ConnectionItem';
 
 type Props = {
     data: string[]

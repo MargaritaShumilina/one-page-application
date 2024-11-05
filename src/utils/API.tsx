@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {TreeNode, User} from "./types";
+import type {TreeNode, User} from "./types";
 
 const BASE_URL = 'http://80.90.190.26:8081/graphql';
 

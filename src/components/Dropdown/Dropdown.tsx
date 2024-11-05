@@ -1,6 +1,6 @@
-import React, { FC, useState } from 'react';
+import React, { type FC, useState } from 'react';
 import './Dropdown.css';
-import {DropdownOption} from "../../utils/types";
+import {type DropdownOption} from '../../utils/types';
 
 interface Props {
     label: string;

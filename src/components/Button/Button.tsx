@@ -1,4 +1,4 @@
-import React, {ComponentType, FC} from "react";
+import React, {type FC} from 'react';
 
 type Props = {
     onClick: () => void,

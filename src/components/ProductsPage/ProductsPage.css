@@ -2,7 +2,7 @@
     display: flex;
     justify-content: center;
     padding-top: 100px;
-    gap: 90px;
+    gap: 110px;
     width: 100%;
 }
 
@@ -28,6 +28,7 @@
 
 .tree-block__tree-items{
     overflow-y: hidden;
+    padding-left: 20px;
 }
 
 .heading{
@@ -41,16 +42,17 @@
 }
 
 .tree-block__header {
-margin: 14px 0 0 30px;
+    margin: 2px 0 0 20px;
 }
 
 .tree-block__button-block{
-    margin-top: 20px;
+    margin-top: 33px;
     margin-bottom: 10px;
+    margin-left: 9px;
 }
 
 .tree-block__close-button{
-    margin-right: 5px;
+    margin-right: 9px;
 }
 
 .btn {
@@ -58,12 +60,19 @@ margin: 14px 0 0 30px;
     border-radius: 3px;
     padding: 3px 5px;
     background-color: initial;
+    max-width: 130px;
+    font-family: Roboto, serif;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 18.75px;
+    text-align: center;
+    height: 30px;
 }
 
 .description-block {
     max-width: 880px;
     width: 100%;
-    padding-right: 20px;
+    padding-right: 30px;
     box-sizing: border-box;
 }
 
@@ -88,8 +97,8 @@ margin: 14px 0 0 30px;
 }
 
 .rc-tree-checkbox {
-    width: 16px !important;
-    height: 16px !important;
+    width: 19px !important;
+    height: 19px !important;
     margin-right: 8px !important;
     position: relative !important;
     border: 2px solid #292222 !important;
@@ -107,6 +116,7 @@ margin: 14px 0 0 30px;
     background-size: contain;
     margin-right: 8px;
     background-repeat: no-repeat;
+    margin-bottom: 5px;
 }
 
 .custom-switcher.collapsed {

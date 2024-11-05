@@ -1,4 +1,4 @@
-import React, { ChangeEventHandler, FC } from 'react';
+import React, { type ChangeEventHandler, FC } from 'react';
 import './SearchInput.css'
 
 type Props = {

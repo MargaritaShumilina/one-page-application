@@ -1,17 +1,14 @@
 import './LoginPage.css';
 import logo from '../../images/logo.png';
-
 import { useForm } from 'react-hook-form';
 import React, { type FC, useState, useEffect } from 'react';
-import {Preloader} from "../Preloader/Preloader";
+import {Preloader} from '../Preloader/Preloader';
 
 type Props = {
     errorMessage: string;
     handleLoginClick: (email: string, password: string,) => void;
     isLoading:boolean
 }
-
-//TODO: Сделать красные поля при отсутствии значений
 
 export const LoginPage: FC<Props> = ({ errorMessage, handleLoginClick, isLoading}) => {
     const [disabled, setDisabled] = useState<boolean>(true);
@@ -85,7 +82,6 @@ export const LoginPage: FC<Props> = ({ errorMessage, handleLoginClick, isLoading
                     <button
                     className={`form-login__button`}
                     type="submit"
-                    // disabled={!isValid}
                     onSubmit={handleSubmit(handleSubmitLogin)}
                 >
                     Продолжить
@@ -99,5 +95,3 @@ export const LoginPage: FC<Props> = ({ errorMessage, handleLoginClick, isLoading
         </section>
     );
 }
-
-export default LoginPage;

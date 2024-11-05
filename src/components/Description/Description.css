@@ -19,10 +19,14 @@
     margin: 0;
 }
 
-.description-block__heading {
+.description-block__heading-description{
     margin-top: 72px;
 }
 
-.description-block__table{
-    margin-top: 7px;
+.description-block__properties{
+    margin-top: 35px;
+}
+
+.description-block__connections{
+    margin-top: 30px;
 }
